@@ -61,7 +61,7 @@ All values are given in Hex
 
 ### The Java based CLI 
 
-Usage:
+#### Usage:
   java me.tymefly.beep.Main  --programmerTimeout N --readTimeout N --writeTimeout N -p (--port) N
 
  [dump | fill | ping | erase | test   program | verify | upload]
@@ -77,7 +77,7 @@ Usage:
 This programmer reads and write S-Record files
 			
 
-Examples:
+#### Examples:
 
  java me.tymefly.beep.Main  -?   
 -	Display the help page
