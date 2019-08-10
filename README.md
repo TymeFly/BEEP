@@ -28,49 +28,56 @@ memory and complexity limits.
 The embedded application communicates with the Java client through the serial port at 57600 baud.
 It understands the following commands:
 
-* d[start[:end]]        Dump EEPROM contents
-                        'start' defaults to 0
-                        'end' defaults to 0x1fff
+* d[start[:end]]
 
-*f[:start[:end[:hex]]]  Fill EEPROM between 'start' and 'end' with 'hex'");
-                        'start' defaults to 0
-                        'end' defaults to 0x1fff
-                        'val' defaults to 0
+  Dump EEPROM contents.'start' defaults to 0. 'end' defaults to 0x1fff
 
-*e                      Erase
-                        Fill the EEPROM with 0xff
+* f[:start[:end[:hex]]]  
 
-* t                     Test
-                        Fill EEPROM with a test sequence and read it back
+  Fill EEPROM between 'start' and 'end' with 'hex'.'start' defaults to 0, 'end' defaults to 0x1fff, 'val' defaults to 0
 
-* pstart,len            Enter Programming mode
-                        'start' address of first byte to write
-                        'number' of bytes to write
+* e
+
+  Fill the EEPROM with 0xff
+
+* t
+
+  Fill EEPROM with a test sequence and read it back
+
+* pstart,len            
+
+  Enter Programming mode. 'start' address of first byte to write,'number' of bytes to write
   
-*  -                    Ping
-                        Redisplay the command prompt
+* \-                    
+
+  Redisplay the command prompt
 						
-* ?                     Display the commands available
+* \?
+
+  Display the commands available
 
 All values are given in Hex
 
 
 ### The Java based CLI 
 
-Usage:
+#### Usage:
   java me.tymefly.beep.Main  --programmerTimeout N --readTimeout N --writeTimeout N -p (--port) N
 
  [dump | fill | ping | erase | test   program | verify | upload]
 
 -p (--port) N            COM port programmer is connected to
+
 --programmerTimeout N    timeout in milliseconds when waiting  for programmer to respond (default:  10000)
+
 --readTimeout N          read timeout in milliseconds when waiting reading the COM port  (default: 1000)
+
 --writeTimeout N         write timeout in milliseconds when waiting reading the COM port (default: 100)
 
 This programmer reads and write S-Record files
 			
 
-Examples:
+#### Examples:
 
  java me.tymefly.beep.Main  -?   
 -	Display the help page
