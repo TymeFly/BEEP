@@ -61,6 +61,8 @@ All values are given in Hex
 
 ### The Java based CLI 
 
+To use the CLI be sure to download and compile my S-Rec library first (https://github.com/TymeFly/S-Rec)
+
 #### Usage:
   java me.tymefly.beep.Main  --programmerTimeout N --readTimeout N --writeTimeout N -p (--port) N
 
@@ -110,6 +112,6 @@ This programmer reads and write S-Record files
 	
 ## Libraries used
 
-* My own S-Rec library for reading/writing S-Records files
+* My own S-Rec library for reading/writing S-Records files (https://github.com/TymeFly/S-Rec)
 * JSR305 for documenting null object references
 * args4j for handling the CLI parsing
