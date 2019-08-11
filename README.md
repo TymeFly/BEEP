@@ -8,7 +8,7 @@ This repo contains code for a simple EEPROM programmer based on Ben Eater's EEPR
 (https://github.com/beneater/eeprom-programmer)
 
 While Ben's original design is a wonderful way to learn how to build a simple EEPROM programmer, there is 
-a limitation in what it can do; the Arduino Nano has to be clever enough to work out what to program the 
+a limitation in what it can do; the Arduino Nano application has to be clever enough to work out what to program the 
 EEPROM with. This left me with two problems
 
 1.	Every time I wanted to write a different EEPROM I’d have to write and download a new Arduino application.
@@ -66,7 +66,7 @@ To use the CLI be sure to download and compile my S-Rec library first (https://g
 #### Usage:
   java me.tymefly.beep.Main  --programmerTimeout N --readTimeout N --writeTimeout N -p (--port) N
 
- [dump | fill | ping | erase | test   program | verify | upload]
+ [dump | fill | ping | erase | test | program | verify | upload]
 
 -p (--port) N            COM port programmer is connected to
 
@@ -85,7 +85,7 @@ This programmer reads and write S-Record files
 -	Display the help page
 
  java me.tymefly.beep.Main  -p 7 ping
--	Ping the Arduino application to see if it’s communication 
+-	Ping the Arduino application to see if it can communicate
 
  java me.tymefly.beep.Main  -p 7 dump --start 0x20 --end 0x46
 -	Display the content of the EEPROM on the screen (Standard Out) in hex and ASCII 
