@@ -8,7 +8,7 @@ This repo contains code for a simple EEPROM programmer based on Ben Eater's EEPR
 (https://github.com/beneater/eeprom-programmer)
 
 While Ben's original design is a wonderful way to learn how to build a simple EEPROM programmer, there is 
-a limitation in what it can do; the Arduino Nano has to be clever enough to work out what to program the 
+a limitation in what it can do; the Arduino Nano application has to be clever enough to work out what to program the 
 EEPROM with. This left me with two problems
 
 1.	Every time I wanted to write a different EEPROM I’d have to write and download a new Arduino application.
@@ -19,7 +19,7 @@ EEPROM with. This left me with two problems
 
 My solution is to split the job in half; the embedded Arduino application knows how to perform basic EEPROM
 related tasks but knows nothing about any specific EEPROM, and a Java client that can manage the programmer. 
-This client can download specific EEPROM data to the programmer in small chunks, and thus get around the 
+This client can download specific EEPROM data to the programmer in (very) small chunks, and thus get around the
 memory and complexity limits.
 
 
@@ -61,10 +61,12 @@ All values are given in Hex
 
 ### The Java based CLI 
 
+To use the CLI be sure to download and compile my S-Rec library first (https://github.com/TymeFly/S-Rec)
+
 #### Usage:
   java me.tymefly.beep.Main  --programmerTimeout N --readTimeout N --writeTimeout N -p (--port) N
 
- [dump | fill | ping | erase | test   program | verify | upload]
+ [dump | fill | ping | erase | test | program | verify | upload]
 
 -p (--port) N            COM port programmer is connected to
 
@@ -74,8 +76,14 @@ All values are given in Hex
 
 --writeTimeout N         write timeout in milliseconds when waiting reading the COM port (default: 100)
 
-This programmer reads and write S-Record files
 			
+#### File Formats:
+
+When uploading data from an EEPROM the generated file will always be in SRecord format - see https://en.wikipedia.org/wiki/SREC_(file_format)
+When downloading data into an EEPROM the application can use the following file formats:
+-	SRecord (.s19, .s28, .s37, .s, .s1, .s2, .s3, .sx, .srec, .mot, .mx)
+-	Binary files (.raw, .dat, .data, .bin)
+
 
 #### Examples:
 
@@ -83,7 +91,7 @@ This programmer reads and write S-Record files
 -	Display the help page
 
  java me.tymefly.beep.Main  -p 7 ping
--	Ping the Arduino application to see if it’s communication 
+-	Ping the Arduino application to see if it can communicate
 
  java me.tymefly.beep.Main  -p 7 dump --start 0x20 --end 0x46
 -	Display the content of the EEPROM on the screen (Standard Out) in hex and ASCII 
@@ -110,6 +118,6 @@ This programmer reads and write S-Record files
 	
 ## Libraries used
 
-* My own S-Rec library for reading/writing S-Records files
+* My own S-Rec library for reading/writing S-Records files (https://github.com/TymeFly/S-Rec)
 * JSR305 for documenting null object references
 * args4j for handling the CLI parsing

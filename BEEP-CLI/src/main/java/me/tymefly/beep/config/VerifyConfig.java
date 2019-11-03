@@ -30,8 +30,8 @@ public class VerifyConfig implements ExtendedConfig {
 
 
     /**
-     * Returns SRecord file to read
-     * @return SRecord file to read
+     * Returns data file to read
+     * @return data file to read
      */
     @Nonnull
     public File getSource() {

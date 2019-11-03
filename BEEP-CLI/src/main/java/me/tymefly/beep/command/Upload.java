@@ -7,13 +7,13 @@ import java.time.format.DateTimeFormatter;
 import javax.annotation.Nonnull;
 
 import me.tymefly.beep.config.UploadConfig;
-import me.tymefly.srec.SWriter;
 import me.tymefly.beep.utils.Preconditions;
 import me.tymefly.beep.utils.Reader;
+import me.tymefly.srec.SWriter;
 
 
 /**
- * Upload the contents of anEEPROM and save save them to an SRecord file.
+ * Upload the contents of an EEPROM and save save them to an SRecord file.
  */
 public class Upload implements Command {
     private static final int BLOCK_SIZE = 32;

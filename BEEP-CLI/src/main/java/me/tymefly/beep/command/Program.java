@@ -3,15 +3,19 @@ package me.tymefly.beep.command;
 import javax.annotation.Nonnull;
 
 import me.tymefly.beep.config.ProgramConfig;
+import me.tymefly.beep.data.source.SourceFile;
+import me.tymefly.beep.data.source.SourceFileManager;
 import me.tymefly.beep.io.ProgrammerDriver;
-import me.tymefly.srec.SReader;
 import me.tymefly.beep.utils.Checker;
 
 
 /**
- * Read an SRecord file for the local file system and send the contents to the EEPROM
+ * Read an data file from the local file system and send the contents to the EEPROM
  */
 public class Program implements Command {
+    private static final int FRAME_SIZE = Math.min(0x30, ProgrammerDriver.BUFFER_SIZE);
+    private static final int FRAME_COUNT = 16;
+
     private final ProgramConfig config;
 
     /**
@@ -27,7 +31,7 @@ public class Program implements Command {
     public boolean execute() {
         System.out.printf("Reading file %s%n", config.getSource().getAbsolutePath());
 
-        SReader reader = SReader.load(config.getSource());
+        SourceFile reader = SourceFileManager.load(config.getSource());
         int size = reader.size();
         boolean success;
 
@@ -48,15 +52,14 @@ public class Program implements Command {
     }
 
 
-    private void dumpStats(@Nonnull SReader reader) {
+    private void dumpStats(@Nonnull SourceFile reader) {
         System.out.printf("Start Address: 0x%04x%n", reader.getStartAddress());
         System.out.printf("End Address  : 0x%04x%n", reader.getEndAddress());
         System.out.printf("Size         : %d%n", reader.size());
-        System.out.println();
     }
 
 
-    private void dumpHeaders(@Nonnull SReader reader) {
+    private void dumpHeaders(@Nonnull SourceFile reader) {
         if (config.showHeaders()) {
             for (String header : reader.getHeaders()) {
                 System.out.printf("   Header: %s%n", header);
@@ -65,7 +68,7 @@ public class Program implements Command {
     }
 
 
-    private boolean program(@Nonnull SReader reader) {
+    private boolean program(@Nonnull SourceFile reader) {
         short startAddress = reader.getStartAddress();
         byte[] buffer = reader.getData();
         int size = buffer.length;
@@ -76,11 +79,17 @@ public class Program implements Command {
         driver.sendCommand(command);
         driver.readLine();                                          // Programming message
 
+        int progress = 1;
         int offset = 0;
         while (size > 0) {
+            if (--progress == 0) {
+                System.out.printf("%nWriting to 0x%04x  ", reader.getStartAddress() + offset);
+                progress = FRAME_COUNT;
+            }
+
             System.out.print('.');
 
-            int blockSize = Math.min(ProgrammerDriver.BUFFER_SIZE, size);
+            int blockSize = Math.min(FRAME_SIZE, size);
             driver.sendData(buffer, offset, blockSize);
             size -= blockSize;
             offset += blockSize;
@@ -103,7 +112,7 @@ public class Program implements Command {
     }
 
 
-    private boolean validate(@Nonnull SReader reader) {
+    private boolean validate(@Nonnull SourceFile reader) {
         ProgrammerDriver driver = ProgrammerDriver.getInstance();
 
         driver.dumpResponse();

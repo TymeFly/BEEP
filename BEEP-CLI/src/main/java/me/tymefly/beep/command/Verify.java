@@ -3,7 +3,8 @@ package me.tymefly.beep.command;
 import javax.annotation.Nonnull;
 
 import me.tymefly.beep.config.VerifyConfig;
-import me.tymefly.srec.SReader;
+import me.tymefly.beep.data.source.SourceFile;
+import me.tymefly.beep.data.source.SourceFileManager;
 import me.tymefly.beep.utils.Checker;
 
 
@@ -27,7 +28,7 @@ public class Verify implements Command {
         System.out.printf("Checking against file %s%n", config.getSource().getAbsolutePath());
 
         short maxErrors = config.getMaxErrors();
-        SReader reader = SReader.load(config.getSource());
+        SourceFile reader = SourceFileManager.load(config.getSource());
         byte[] expected = reader.getData();
         short startAddress = reader.getStartAddress();
         short endAddress = reader.getEndAddress();
@@ -40,7 +41,7 @@ public class Verify implements Command {
     }
 
 
-    private void dumpHeaders(@Nonnull SReader reader) {
+    private void dumpHeaders(@Nonnull SourceFile reader) {
         if (config.showHeaders()) {
             for (String header : reader.getHeaders()) {
                 System.out.printf("   Header: %s%n", header);

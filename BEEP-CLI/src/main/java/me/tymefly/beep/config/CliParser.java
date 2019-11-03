@@ -23,6 +23,10 @@ import static org.kohsuke.args4j.OptionHandlerFilter.ALL;
  */
 public class CliParser {
     private static final int SCREEN_WIDTH_CHARACTERS = 80;
+    private static final int DEFAULT_READ_TIMEOUT_MS = 1_000;
+    private static final int DEFAULT_WRITE_TIMEOUT_MS = 100;
+    private static final int DEFAULT_PROGRAMMER_TIMEOUT_MS = 10_000;
+
     // TODO: an option to set the size of the EEPROM
     private static CliParser instance;
 
@@ -30,13 +34,13 @@ public class CliParser {
     private byte port;
 
     @Option(name = "--readTimeout", usage = "read timeout in milliseconds when waiting reading the COM port")
-    private int readTimeoutMs = 1_000;
+    private int readTimeoutMs = DEFAULT_READ_TIMEOUT_MS;
 
     @Option(name = "--writeTimeout", usage = "write timeout in milliseconds when waiting reading the COM port")
-    private int writeTimeoutMs = 100;
+    private int writeTimeoutMs = DEFAULT_WRITE_TIMEOUT_MS;
 
     @Option(name = "--programmerTimeout", usage = "timeout in milliseconds when waiting for programmer to respond")
-    private int programmerTimeoutMs = 10_000;
+    private int programmerTimeoutMs = DEFAULT_PROGRAMMER_TIMEOUT_MS;
 
     @Option(name = "-?", aliases = {"--help", "-h"}, help = true)
     private boolean help;
