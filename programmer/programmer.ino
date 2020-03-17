@@ -524,5 +524,3 @@ void setAddress(int address, bool outputEnable) {
   digitalWrite(SHIFT_LATCH, HIGH);
   digitalWrite(SHIFT_LATCH, LOW);
 }
-
-

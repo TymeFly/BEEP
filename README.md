@@ -64,7 +64,7 @@ All values are given in Hex
 To use the CLI be sure to download and compile my S-Rec library first (https://github.com/TymeFly/S-Rec)
 
 #### Usage:
-  java me.tymefly.beep.Main  --programmerTimeout N --readTimeout N --writeTimeout N -p (--port) N
+  java com.github.tymefly.beep.Main  --programmerTimeout N --readTimeout N --writeTimeout N -p (--port) N
 
  [dump | fill | ping | erase | test | program | verify | upload]
 
@@ -87,31 +87,31 @@ When downloading data into an EEPROM the application can use the following file 
 
 #### Examples:
 
- java me.tymefly.beep.Main  -?   
+ java com.github.tymefly.beep.Main  -?   
 -	Display the help page
 
- java me.tymefly.beep.Main  -p 7 ping
+ java com.github.tymefly.beep.Main  -p 7 ping
 -	Ping the Arduino application to see if it can communicate
 
- java me.tymefly.beep.Main  -p 7 dump --start 0x20 --end 0x46
+ java com.github.tymefly.beep.Main  -p 7 dump --start 0x20 --end 0x46
 -	Display the content of the EEPROM on the screen (Standard Out) in hex and ASCII 
 
- java me.tymefly.beep.Main  -p 7 erase
+ java com.github.tymefly.beep.Main  -p 7 erase
 -	Erase the EEPROM (write 0xff to all locations)
 
- java me.tymefly.beep.Main  -p 7 fill --byte 0x5a --start 0x100 --end 0x200
+ java com.github.tymefly.beep.Main  -p 7 fill --byte 0x5a --start 0x100 --end 0x200
 -	Write the value 0x5a to all locations in the EEPROM between 0x100 and 0x200
 
- java me.tymefly.beep.Main  -p 7 test
+ java com.github.tymefly.beep.Main  -p 7 test
 -	Write a test pattern to all locations in the EEPROM and check they have been written correctly
 
- java me.tymefly.beep.Main  -p 7 program --file MyFile.srec
+ java com.github.tymefly.beep.Main  -p 7 program --file MyFile.srec
 -	Write the content of MyFile.srec to the EERPOM
 
- java me.tymefly.beep.Main  -p 7 upload --header "My Description" --out MyFile.srec
+ java com.github.tymefly.beep.Main  -p 7 upload --header "My Description" --out MyFile.srec
 -	Read the content of the EEPROM and write it to MyFile.srec to 
 
- java me.tymefly.beep.Main  -p 7 verify --MyFile.srec --maxErrors 2
+ java com.github.tymefly.beep.Main  -p 7 verify --MyFile.srec --maxErrors 2
 -	Check that the EEPROM contains the content of MyFile. Give up after 2 errors.
 
 
