@@ -2,9 +2,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>me.tymefly.beep</groupId>
+    <groupId>com.github.tymefly</groupId>
     <artifactId>beep-cli</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <name>BEEP-Cli</name>
 
     <properties>
@@ -18,9 +18,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>me.tymefly</groupId>
+            <groupId>com.github.tymefly</groupId>
             <artifactId>srec</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </dependency>
 
         <dependency>
@@ -144,9 +144,9 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <name>CukeDoc</name>
-                    <windowtitle>CukeDoc</windowtitle>
-                    <doctitle>CukeDoc</doctitle>
+                    <name>${project.name}</name>
+                    <windowtitle>${project.name}</windowtitle>
+                    <doctitle>${project.name}</doctitle>
                     <version>false</version>
 
                     <footer>Built on ${maven.build.timestamp}</footer>
