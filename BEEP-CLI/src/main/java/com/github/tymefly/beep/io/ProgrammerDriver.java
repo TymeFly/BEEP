@@ -231,7 +231,8 @@ public class ProgrammerDriver {
         if (port == null) {
             port = new ComPort();
 
-            boolean sync = dumpResponse(new PrintStream(new NullOutputStream()));
+            PrintStream stream = new PrintStream(new NullOutputStream(), true, StandardCharsets.US_ASCII);
+            boolean sync = dumpResponse(stream);
 
             if (!sync) {
                 throw new DriverException("Programmer failed to respond");

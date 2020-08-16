@@ -22,7 +22,7 @@ import static org.kohsuke.args4j.OptionHandlerFilter.ALL;
  * Command Line Argument parser.
  */
 public class CliParser {
-    private static final int SCREEN_WIDTH_CHARACTERS = 80;
+    private static final int SCREEN_WIDTH_CHARACTERS = 100;
     private static final int DEFAULT_READ_TIMEOUT_MS = 1_000;
     private static final int DEFAULT_WRITE_TIMEOUT_MS = 100;
     private static final int DEFAULT_PROGRAMMER_TIMEOUT_MS = 10_000;
@@ -30,8 +30,8 @@ public class CliParser {
     // TODO: an option to set the size of the EEPROM
     private static CliParser instance;
 
-    @Option(name = "-p", aliases = "--port", required = true, usage = "COM port programmer is connected to")
-    private byte port;
+    @Option(name = "-p", aliases = "--port", required = false, usage = "COM port programmer is connected to")
+    private byte port = -1;
 
     @Option(name = "--readTimeout", usage = "read timeout in milliseconds when waiting reading the COM port")
     private int readTimeoutMs = DEFAULT_READ_TIMEOUT_MS;
@@ -47,9 +47,10 @@ public class CliParser {
 
     @Argument(required = true,
               metaVar = "action",
-              usage = "subcommands: ping, test, dump, fill, erase, upload, program, verify}",
+              usage = "EEPROM Programmer Commands",
               handler = SubCommandHandler.class)
     @SubCommands({
+            @SubCommand(name = "describe", impl = DescribeConfig.class),
             @SubCommand(name = "dump", impl = DumpConfig.class),
             @SubCommand(name = "fill", impl = FillConfig.class),
             @SubCommand(name = "ping", impl = PingConfig.class),
@@ -94,13 +95,22 @@ public class CliParser {
 
 
     private void parse(String... args) {
+        String message = null;
+
         try {
             parser.parseArgument(args);
-            isValid = true;
-        } catch (CmdLineException e) {
-            isValid = false;
 
-            System.err.println("Error: " + e.getMessage());
+            if (getCommand().requiresProgrammer() && (getPort() == -1)) {
+                message = "Required parameter --port is undefined";
+            }
+        } catch (CmdLineException e) {
+            message = e.getMessage();
+        }
+
+        isValid = (message == null);
+
+        if (!isValid) {
+            System.err.println("Error: " + message);
             System.err.println();
             displayUsage(System.err);
         }

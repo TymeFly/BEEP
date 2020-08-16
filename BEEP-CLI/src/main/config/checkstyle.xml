@@ -121,7 +121,7 @@
         <property name="eachLine" value="true"/>
     </module>
     <module name="RegexpHeader">
-        <property name="header" value="^package me\.tymefly\.beep(\.[a-z0-9]+)*;$"/>
+        <property name="header" value="^package com\.github\.tymefly\.beep(\.[a-z0-9]+)*;$"/>
     </module>
 
     <!-- This filter allows us to comment out false positives. Developer is required to provide a reason. -->

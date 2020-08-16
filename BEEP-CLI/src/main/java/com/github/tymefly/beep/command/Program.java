@@ -35,8 +35,11 @@ public class Program implements Command {
         int size = reader.size();
         boolean success;
 
-        dumpHeaders(reader);
-        dumpStats(reader);
+        Metadata.dumpHeaders(reader);
+
+        if (config.showHeaders()) {
+            Metadata.dumpStats(reader);
+        }
 
         if (size == 0) {
             success = true;
@@ -49,22 +52,6 @@ public class Program implements Command {
         }
 
         return success;
-    }
-
-
-    private void dumpStats(@Nonnull SourceFile reader) {
-        System.out.printf("Start Address: 0x%04x%n", reader.getStartAddress());
-        System.out.printf("End Address  : 0x%04x%n", reader.getEndAddress());
-        System.out.printf("Size         : %d%n", reader.size());
-    }
-
-
-    private void dumpHeaders(@Nonnull SourceFile reader) {
-        if (config.showHeaders()) {
-            for (String header : reader.getHeaders()) {
-                System.out.printf("   Header: %s%n", header);
-            }
-        }
     }
 
 

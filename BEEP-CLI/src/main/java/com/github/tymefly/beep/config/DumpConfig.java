@@ -5,7 +5,6 @@ import javax.annotation.Nonnull;
 import com.github.tymefly.beep.command.Command;
 import com.github.tymefly.beep.command.Dump;
 import com.github.tymefly.beep.config.handler.AddressOptionHandler;
-import com.github.tymefly.beep.config.ExtendedConfig;
 import org.kohsuke.args4j.Option;
 
 /**

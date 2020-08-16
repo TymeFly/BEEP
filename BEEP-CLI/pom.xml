@@ -4,7 +4,7 @@
 
     <groupId>com.github.tymefly</groupId>
     <artifactId>beep-cli</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <name>BEEP-Cli</name>
 
     <properties>

@@ -3,7 +3,6 @@ package com.github.tymefly.beep.config.handler;
 import javax.annotation.Nonnull;
 
 import com.github.tymefly.beep.config.ExtendedConfig;
-import com.github.tymefly.beep.config.ExtendedConfig;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.OptionDef;
