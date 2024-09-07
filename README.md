@@ -66,7 +66,7 @@ To use the CLI be sure to download and compile my S-Rec library first (https://g
 #### Usage:
   java com.github.tymefly.beep.Main  --programmerTimeout N --readTimeout N --writeTimeout N -p (--port) N
 
- [dump | fill | ping | erase | test | program | verify | upload]
+ [dump | fill | ping | erase | test | program | verify | upload | describe]
 
 -p (--port) N            COM port programmer is connected to
 
@@ -114,7 +114,9 @@ When downloading data into an EEPROM the application can use the following file 
  java com.github.tymefly.beep.Main  -p 7 verify --MyFile.srec --maxErrors 2
 -	Check that the EEPROM contains the content of MyFile. Give up after 2 errors.
 
-
+ java com.github.tymefly.beep.Main  describe --file MyFile.srec
+-	Dump the SRecord metadata to standard out. This includes the start address, end address, images size
+    and all header fields
 	
 ## Libraries used
 

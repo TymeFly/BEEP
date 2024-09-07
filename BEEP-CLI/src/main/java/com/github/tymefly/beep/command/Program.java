@@ -10,7 +10,7 @@ import com.github.tymefly.beep.utils.Checker;
 
 
 /**
- * Read an data file from the local file system and send the contents to the EEPROM
+ * Read data file from the local file system and send the contents to the EEPROM
  */
 public class Program implements Command {
     private static final int FRAME_SIZE = Math.min(0x30, ProgrammerDriver.BUFFER_SIZE);
@@ -45,6 +45,10 @@ public class Program implements Command {
             success = true;
         } else {
             success = program(reader) && validate(reader);
+        }
+
+        if (config.dump()) {
+            success &= new Dump(reader.getStartAddress(), reader.getEndAddress()).execute();
         }
 
         if (success) {

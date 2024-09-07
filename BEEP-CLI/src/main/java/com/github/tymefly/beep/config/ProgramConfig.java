@@ -18,6 +18,9 @@ public class ProgramConfig implements ExtendedConfig {
     @Option(name = "--hideHeaders", usage = "Don't show headers")
     private boolean hideHeaders = false;
 
+    @Option(name = "--dump", usage = "Don't show headers")
+    private boolean dump = false;
+
 
     @Nonnull
     @Override
@@ -42,5 +45,13 @@ public class ProgramConfig implements ExtendedConfig {
      */
     public boolean showHeaders() {
         return !hideHeaders;
+    }
+
+    /**
+     * Returns {@literal true} only if we need to dump the content of the EEPROM afterwards
+     * @return {@literal true} only if we need to dump the content of the EEPROM afterwards
+     */
+    public boolean dump() {
+        return dump;
     }
 }

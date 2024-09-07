@@ -15,7 +15,8 @@ import com.github.tymefly.beep.utils.Preconditions;
  * }</pre>
  */
 public class Dump implements Command {
-    private DumpConfig config;
+    private final short startAddress;
+    private final short endAddress;
 
 
     /**
@@ -23,15 +24,23 @@ public class Dump implements Command {
      * @param config        Command configuration
      */
     public Dump(@Nonnull DumpConfig config) {
-        this.config = config;
+        this(config.getStart(), config.getEnd());
+    }
+
+
+    /**
+     * Create an instance of the "Dump" command handler
+     * @param startAddress      First address to dump
+     * @param endAddress        Last address to dump
+     */
+    public Dump(short startAddress, short endAddress) {
+        this.startAddress = startAddress;
+        this.endAddress = endAddress;
     }
 
 
     @Override
     public boolean execute() {
-        short startAddress = config.getStart();
-        short endAddress = config.getEnd();
-
         Preconditions.checkArgument((startAddress <= endAddress),
             "Invalid range (0x%04x -> 0x%04x) for checking", startAddress, endAddress);
 

@@ -246,7 +246,6 @@ static void fill(int start, int end, byte val) {
  * @return            true only if the test succeeded
  */
 static bool test() {
-  bool valid = true;
   Serial.println("Testing EEPROM");
 
   // Write Phase
@@ -269,6 +268,7 @@ static bool test() {
   Serial.println();
 
   // Read Phase
+  int errors = 0;
   offset = 0;
   for (int address = MIN_ADDRESS; address <= MAX_ADDRESS; address += 1) {
     byte expected = testData[offset++];
@@ -280,13 +280,21 @@ static bool test() {
       sprintf(buffer, "ERROR at address %04x. Expected %04x, but was %04x", address, expected, actual);
       Serial.println(buffer);
 
-      valid = false;
+      errors ++;
     }
 
     offset %= (sizeof testData);
   }
 
-  Serial.println(valid ? "Test PASSED" : "Test FALIED");
+  if (errors == 0) {
+    Serial.println("Test PASSED");
+  } else {
+    char buffer[50];
+    
+    sprintf(buffer, "Test FALIED with %d errors", errors);
+    Serial.println(buffer);    
+  }
+
 
   return true;
 }
